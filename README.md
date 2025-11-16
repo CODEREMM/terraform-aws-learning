@@ -5,7 +5,7 @@ Learning Terraform and AWS through hands-on projects
 Self-taught Cloud & AI Engineer | AWS • Terraform • Python  
 
 I'm focused on building real cloud-native systems, serverless architectures, and AI-powered solutions.  
-My current portfolio includes infrastructure automation, serverless APIs, and a full Disaster Response Cloud Kit deployed with Terraform.
+My current portfolio includes infrastructure automation, serverless APIs, and a full Disaster Response Cloud Kit deployed with Terraform (coming soon).
 
 ---
 
