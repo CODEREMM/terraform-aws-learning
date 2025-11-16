@@ -17,3 +17,8 @@ output "dynamodb_table_name" {
   description = "Name of the DynamoDB table"
   value       = aws_dynamodb_table.app_table.name
 }
+
+output "api_endpoint" {
+  description = "API Gateway endpoint URL"
+  value       ="${aws_api_gateway_stage.api_stage.invoke_url}/items"
+}
