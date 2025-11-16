@@ -1,76 +1,131 @@
-Hi, I’m Malik 👋
-Self-Taught Cloud & AI Engineer | AWS • Terraform • Python
-I build production-ready cloud infrastructure and AI-powered solutions. My work focuses on serverless architectures, infrastructure automation, and integrating LLMs into scalable systems. I’m passionate about designing resilient, event-driven cloud systems that solve real-world problems.
-🚀 What I’m Building
-I’m currently focused on:
-	•	Serverless Architecture – Designing scalable systems with Lambda, API Gateway, and DynamoDB
-	•	Infrastructure as Code – Building reusable Terraform modules for multi-environment deployments
-	•	AI Integration – Implementing LLM workflows using AWS Bedrock, RAG patterns, and agentic systems
-	•	Cloud Automation – Creating event-driven architectures with EventBridge and Step Functions
-	•	Continuous Learning – Pursuing AWS Solutions Architect Professional and expanding into MLOps
+👋 Hi, I’m Malik
+
+Self-Taught Cloud & AI Engineer
+
+AWS • Terraform • Python • Serverless Architecture
+
+I build production-ready cloud infrastructure and AI-powered systems. My focus is on serverless design, infrastructure automation, and integrating LLMs into scalable architectures. I’m passionate about building resilient, event-driven cloud platforms that solve real-world problems.
+
+⸻
+
+🚀 What I’m Working On
+	•	Serverless Architecture – Lambda, API Gateway, DynamoDB
+	•	Infrastructure as Code – Modular Terraform for multi-env deployments
+	•	AI Integration – LLM workflows using AWS Bedrock, RAG, agentic patterns
+	•	Cloud Automation – EventBridge + Step Functions for event-driven systems
+	•	Continuous Learning – SA Pro track + expanding into MLOps
+
+⸻
+
 🧩 Featured Projects
+
+⸻
+
 🌩️ Disaster Response Cloud Kit
-Multi-region serverless infrastructure for crisis response scenarios
-A comprehensive Terraform-based disaster response system demonstrating production-grade cloud architecture patterns.
-Key Features:
-	•	Multi-region deployment with automated failover
-	•	Modular Terraform design (networking, compute, storage, monitoring)
-	•	Event-driven alert system using EventBridge and SNS
-	•	DynamoDB Streams for real-time data processing
-	•	Infrastructure deployed across development, staging, and production environments
-Tech Stack: Terraform, AWS Lambda, DynamoDB, EventBridge, S3, CloudWatchStatus: In Development📂 View Repository ← Add link when ready
+
+Multi-region serverless infrastructure for real-world crisis response
+
+A production-grade Terraform system for deploying resilient, multi-environment disaster-response cloud architecture.
+
+Key Features
+	•	Automated multi-region failover
+	•	Modular Terraform: networking, compute, storage, monitoring
+	•	Event-driven alerts with EventBridge + SNS
+	•	DynamoDB Streams for real-time data ingestion
+	•	Dev → Staging → Prod IaC deployment model
+
+Tech Stack: Terraform • Lambda • DynamoDB • EventBridge • S3 • CloudWatch
+Status: In Development
+📂 View Repository ← Add link when ready
+
+⸻
+
 🤖 Serverless AI API
-Scalable REST API with integrated LLM capabilities
-A serverless API demonstrating modern cloud-native design with AI integration.
-Key Features:
-	•	RESTful API built with API Gateway and Lambda
-	•	Python-based inference endpoints
-	•	DynamoDB for session management and response caching
-	•	LLM integration for intelligent request processing
-	•	Automated deployment with Terraform
-Tech Stack: Python, AWS Lambda, API Gateway, DynamoDB, Bedrock📂 View Repository
+
+Scalable REST API with built-in LLM capabilities
+
+A cloud-native serverless API demonstrating how to integrate AI inference into distributed systems.
+
+Key Features
+	•	REST API: API Gateway + Lambda
+	•	Python-based LLM inference endpoints
+	•	DynamoDB for sessions + response caching
+	•	Bedrock integration for intelligent request processing
+	•	Fully automated deployment with Terraform
+
+Tech Stack: Python • Lambda • API Gateway • DynamoDB • Bedrock
+📂 View Repository
+
+⸻
+
 🛠️ Cloud Automation Toolkit
-Reusable infrastructure patterns and automation scripts
-A collection of production-ready Terraform modules and Python automation tools.
+
+Reusable infra patterns + automation utilities
+
+A collection of Terraform modules and Python automation scripts designed for real-world production workflows.
+
 Includes:
-	•	Terraform modules for common AWS patterns
-	•	Python scripts for resource management and cost optimization
-	•	Event-driven infrastructure patterns
-	•	CI/CD pipeline templates with GitHub Actions
-Tech Stack: Terraform, Python, Bash, GitHub Actions📂 View Repository
+	•	Reusable Terraform modules
+	•	Python scripts for automation + cost tools
+	•	Event-driven architecture templates
+	•	GitHub Actions CI/CD pipelines
+
+Tech Stack: Terraform • Python • Bash • GitHub Actions
+📂 View Repository
+
+⸻
+
 🧠 Technical Skills
+
 Cloud & Infrastructure
-	•	AWS: Lambda, S3, DynamoDB, API Gateway, IAM, EventBridge, Step Functions, CloudWatch, VPC
-	•	Infrastructure as Code: Terraform (modules, workspaces, remote state)
-	•	Event-driven architecture and serverless patterns
+	•	AWS: Lambda, S3, DynamoDB, API Gateway, IAM
+	•	EventBridge, Step Functions, CloudWatch, VPC
+	•	Terraform (modules, workspaces, remote state)
+	•	Event-driven + serverless patterns
+
 AI & Machine Learning
-	•	Large Language Models (LLMs)
-	•	Retrieval-Augmented Generation (RAG)
-	•	Agentic AI workflows
+	•	LLMs
+	•	RAG pipelines
+	•	Agentic workflows
 	•	AWS Bedrock
+
 Programming & DevOps
-	•	Languages: Python, Bash
-	•	Version Control: Git, GitHub
-	•	CI/CD: GitHub Actions
-	•	Operating Systems: Linux
+	•	Python, Bash
+	•	Git, GitHub
+	•	CI/CD with GitHub Actions
+	•	Linux systems
+
+⸻
+
 🎓 Certifications & Learning
-Completed Training:
-	•	AWS Solutions Architect – Associate (course completed)
-	•	AWS AI Practitioner (course completed)
-	•	Python programming (self-taught)
-	•	Linux system administration (self-taught)
-Currently Pursuing:
-	•	AWS Certified Solutions Architect – Associate (exam prep)
-	•	AWS Certified AI Practitioner (exam prep)
-	•	Machine Learning Specialization (Coursera/DeepLearning.AI)
-Future Goals:
-	•	AWS Solutions Architect – Professional (2026)
-	•	Expanding into MLOps and model deployment
+
+Completed Training
+	•	AWS Solutions Architect – Associate (course complete)
+	•	AWS AI Practitioner (course complete)
+	•	Python programming — self-taught
+	•	Linux system administration — self-taught
+
+Currently Pursuing
+	•	AWS SAA (Exam Prep)
+	•	AWS AI Practitioner (Exam Prep)
+	•	Machine Learning Specialization — DeepLearning.AI
+
+Future Goals
+	•	AWS Solutions Architect — Professional (2026)
+	•	Expand into MLOps + model deployment
+
+⸻
+
 💼 Why Work With Me?
-I bring a unique combination of self-driven learning, hands-on project experience, and a commitment to building production-quality infrastructure. My projects demonstrate:
-	•	Real-world application of cloud architecture principles
-	•	Best practices in infrastructure as code and modular design
-	•	Problem-solving skills through complete end-to-end implementations
-	•	Continuous improvement mindset with ongoing learning and certification pursuits
+
+I bring a mix of self-driven learning, hands-on builds, and a focus on production-level execution:
+	•	Real-world cloud architecture patterns
+	•	Clean and modular IaC
+	•	Full end-to-end project implementation
+	•	Continual improvement and certification-driven learning
+
+⸻
+
 📫 Let’s Connect
-I’m always interested in collaborating on cloud infrastructure, AI integration projects, or discussing innovative solutions.
+
+Always open to collaborating on cloud, AI systems, or innovative infrastructure ideas.
