@@ -100,15 +100,15 @@ Programming & DevOps
 🎓 Certifications & Learning
 
 Completed Training
-	•	AWS Solutions Architect – Associate (course complete)
-	•	AWS AI Practitioner (course complete)
+	•	AWS Solutions Architect – Associate (Udemy course complete)
+	•	AWS AI Practitioner (Udemy course complete)
 	•	Python programming — self-taught
 	•	Linux system administration — self-taught
 
 Currently Pursuing
 	•	AWS SAA (Exam Prep)
 	•	AWS AI Practitioner (Exam Prep)
-	•	Machine Learning Specialization — DeepLearning.AI
+	•	Machine Learning Specialization — (Udemy)
 
 Future Goals
 	•	AWS Solutions Architect — Professional (2026)
