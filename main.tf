@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
 #Create S3 bucket
 resource "aws_s3_bucket" "demo_bucket" {
   bucket = "malik-demo-bucket2-2025"
@@ -54,7 +50,7 @@ resource "aws_iam_role_policy" "lambda_dynamodb" {
         "dynamodb:Query",
         "dynamodb:Scan"
       ]
-      Resource = aws_dynamodb_table.app_table.arn
+      Resource = aws_dynamodb_table.global_table.arn
     }]
   })
 }
@@ -63,38 +59,86 @@ resource "aws_iam_role_policy" "lambda_dynamodb" {
 resource "aws_lambda_function" "api_function" {
   filename         = "lambda_function.zip"
   function_name    = "${var.environment}-my-function"
-  role            = aws_iam_role.lambda_role.arn
-  handler         = "index.handler"
+  role             = aws_iam_role.lambda_role.arn
+  handler          = "index.handler"
   source_code_hash = filebase64sha256("lambda_function.zip")
-  runtime         = "python3.11"
+  runtime          = "python3.11"
 
   environment {
     variables = {
       ENVIRONMENT = var.environment
-      TABLE_NAME  = aws_dynamodb_table.app_table.name
+      TABLE_NAME  = aws_dynamodb_table.global_table.name
     }
   }
 }
 
-# DynamoDB table
-resource "aws_dynamodb_table" "app_table" {
-  name           = "${var.environment}-app-data"
-  billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "id"
+# DynamoDB Global table (Primary region with replica)
+resource "aws_dynamodb_table" "global_table" {
+  provider         = aws.primary
+  name             = "${var.environment}-global-app-data"
+  billing_mode     = "PAY_PER_REQUEST"
+  hash_key         = "id"
+  stream_enabled   = true
+  stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
     name = "id"
     type = "S"
   }
 
+  # Creates a replica in secondary region automatically 
+  replica {
+    region_name = var.secondary_region
+  }
+
   tags = {
+    Name        = "Global App Data Table"
     Environment = var.environment
   }
 }
 
-#REST API
+# ==========================================
+# PRIMARY REGION (us-east-1)
+# ==========================================
+
+#Lambda module
+module "api_lambda_primary" {
+  source = "./modules/lambda.api"
+
+  providers = {
+    aws = aws.primary
+  }
+
+  function_name   = "${var.environment}-api-function-primary"
+  environment     = "${var.environment}-primary"
+  lambda_zip_path = "lambda_function.zip"
+  table_name      = aws_dynamodb_table.global_table.name
+  table_arn       = aws_dynamodb_table.global_table.arn
+}
+
+# API gateway primary module 
+module "api_gateway_primary" {
+  source = "./modules/api-gateway"
+
+  providers = {
+    aws = aws.primary
+  }
+
+  api_name             = "${var.environment}-api-primary"
+  environment          = "${var.environment}-primary"
+  lambda_invoke_arn    = module.api_lambda_primary.invoke_arn
+  lambda_function_name = module.api_lambda_primary.function_name
+}
+
+# ==========================================
+# SECONDARY REGION (eu-west-1)
+# ==========================================
+
+
+
+# REST API
 resource "aws_api_gateway_rest_api" "api" {
-  name = "${var.environment}-my-api"
+  name        = "${var.environment}-my-api"
   description = "My First Terraform API"
 }
 
@@ -146,12 +190,12 @@ resource "aws_api_gateway_deployment" "api_deployment" {
       aws_api_gateway_integration.lambda_integration.id,
     ]))
   }
-   lifecycle {
+  lifecycle {
     create_before_destroy = true
   }
 }
 
-  # Stage
+# Stage
 resource "aws_api_gateway_stage" "api_stage" {
   deployment_id = aws_api_gateway_deployment.api_deployment.id
   rest_api_id   = aws_api_gateway_rest_api.api.id
