@@ -131,9 +131,34 @@ module "api_gateway_primary" {
 }
 
 # ==========================================
-# SECONDARY REGION (eu-west-1)
+# SECONDARY REGION (us-west-1)
 # ==========================================
+module "api_lambda_secondary" {
+  source = "./modules/lambda.api"
+  
+  providers = {
+    aws = aws.secondary
+  }
+  
+  function_name   = "${var.environment}-api-function-secondary"
+  environment     = "${var.environment}-secondary"
+  lambda_zip_path = "lambda_function.zip"
+  table_name      = aws_dynamodb_table.global_table.name
+  table_arn       = aws_dynamodb_table.global_table.arn
+}
 
+module "api_gateway_secondary" {
+  source = "./modules/api-gateway"
+  
+  providers = {
+    aws = aws.secondary
+  }
+  
+  api_name             = "${var.environment}-api-secondary"
+  environment          = "${var.environment}-secondary"
+  lambda_invoke_arn    = module.api_lambda_secondary.invoke_arn
+  lambda_function_name = module.api_lambda_secondary.function_name
+}
 
 
 # REST API

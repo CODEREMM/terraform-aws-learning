@@ -11,14 +11,14 @@ def handler(event, context):
     table.put_item(
         Item={
             'id': str(datetime.now().timestamp()),
-            'message': 'Hello from Terraform Lambda!',
+            'message': 'Hello we"ve successfully deployed Terraform Lambda in multi-region!',
             'timestamp': datetime.now().isoformat()
         }
     )
 
     return {
         'statusCode': 200,
-        'body': json.dumps({'message': 'Item written to DynamoDB'})
+        'body': json.dumps({'message': 'Item successfully written to DynamoDB'})
     }
     
 
