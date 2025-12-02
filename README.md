@@ -14,4 +14,8 @@ Successfully deployed a globally distributed serverless application:
 - **Regions:** us-east-1 (primary) + us-west-1 (secondary)
 - **Services:** Lambda, API Gateway, DynamoDB Global Tables
 - **Features:** Automatic data replication, independent regional endpoints
+<<<<<<< HEAD
 - **Infrastructure:** 100% managed with Terraform modules
+=======
+- **Infrastructure:** 100% managed with Terraform modules
+>>>>>>> e80865aaf7c3bb53b865beb26f3b9f89404a79f6
