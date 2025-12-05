@@ -50,7 +50,11 @@ resource "aws_iam_role_policy" "lambda_dynamodb" {
         "dynamodb:UpdateItem",
         "dynamodb:DeleteItem"
       ]
-      Resource = var.table_arn
+      Resource = [
+        var.table_arn,
+        "${var.table_arn}/*",  # Includes indexes
+        "arn:aws:dynamodb:*:*:table/${split("/", var.table_arn)[1]}"  # All regions
+      ]
     }]
   })
 }

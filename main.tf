@@ -131,7 +131,7 @@ module "api_gateway_primary" {
 }
 
 # ==========================================
-# SECONDARY REGION (us-west-1)
+# SECONDARY REGION (eu-west-1)
 # ==========================================
 module "api_lambda_secondary" {
   source = "./modules/lambda.api"

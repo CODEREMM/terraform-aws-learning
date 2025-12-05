@@ -1,35 +1,50 @@
-output "bucket_name" {
-  description = "Name of the S3 bucket"
-  value       = aws_s3_bucket.malik-demo-bucket2-2025.id
+# ==========================================
+# MULTI-REGION API ENDPOINTS
+# ==========================================
+
+output "primary_api_endpoint" {
+  description = "Primary region API endpoint (us-east-1)"
+  value       = module.api_gateway_primary.api_endpoint
 }
 
-output "bucket_arn" {
-  description = "ARN of the S3 bucket"
-  value       = aws_s3_bucket.malik-demo-bucket2-2025.arn
+output "secondary_api_endpoint" {
+  description = "Secondary region API endpoint (eu-west-1)"
+  value       = module.api_gateway_secondary.api_endpoint
 }
 
-output "lambda_arn" {
-  description = "ARN of the Lambda function"
-  value       = aws_iam_role.lambda_role.arn
+# ==========================================
+# LAMBDA FUNCTIONS
+# ==========================================
+
+output "primary_lambda_function" {
+  description = "Primary Lambda function name"
+  value       = module.api_lambda_primary.function_name
 }
 
-output "dynamodb_table_name" {
-  description = "Name of the DynamoDB table"
+output "secondary_lambda_function" {
+  description = "Secondary Lambda function name"
+  value       = module.api_lambda_secondary.function_name
+}
+
+# ==========================================
+# DYNAMODB
+# ==========================================
+
+output "global_table_name" {
+  description = "DynamoDB Global Table name"
   value       = aws_dynamodb_table.global_table.name
 }
 
-output "api_endpoint" {
-  description = "API Gateway endpoint URL"
-  value       = "${aws_api_gateway_stage.api_stage.invoke_url}/items"
+# ==========================================
+# REGIONS
+# ==========================================
+
+output "primary_region" {
+  description = "Primary deployment region"
+  value       = var.primary_region
 }
 
-# Outputs the state bucket name 
-output "state_bucket_name" {
-  description = "Name of the S3 bucket"
-  value       = aws_s3_bucket.terraform_state.id
-}
-
-output "lock_table_name" {
-  description = "Name of the DynamoDB table for state locking"
-  value       = aws_dynamodb_table.terraform_state_lock.id
+output "secondary_region" {
+  description = "Secondary deployment region"
+  value       = var.secondary_region
 }

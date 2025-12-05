@@ -7,7 +7,7 @@ variable "primary_region" {
 variable "secondary_region" {
   description = "Secondary AWS region"
   type        = string
-  default     = "us-west-1"
+  default     = "eu-west-1"
 }
 variable "environment" {
   description = "Environment name"

@@ -7,18 +7,32 @@ dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ['TABLE_NAME'])
 
 def handler(event, context):
-    #Write a test item
-    table.put_item(
-        Item={
-            'id': str(datetime.now().timestamp()),
-            'message': 'Hello we"ve successfully deployed Terraform Lambda in multi-region!',
-            'timestamp': datetime.now().isoformat()
+    try:
+        item_id = str(int(datetime.now().timestamp() * 1000))
+        
+        item = {
+            'id': item_id,
+            'message': 'Hello from Terraform Lambda!',
+            'timestamp': datetime.now().isoformat(),
+            'environment': os.environ.get('ENVIRONMENT', 'unknown')
         }
-    )
-
-    return {
-        'statusCode': 200,
-        'body': json.dumps({'message': 'Item successfully written to DynamoDB'})
-    }
-    
-
+        
+        table.put_item(Item=item)
+        
+        return {
+            'statusCode': 200,
+            'body': json.dumps({
+                'message': 'Item written to DynamoDB successfully!',
+                'item_id': item_id,
+                'table_name': os.environ['TABLE_NAME']
+            })
+        }
+        
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'body': json.dumps({
+                'error': str(e),
+                'message': 'Failed to write to DynamoDB'
+            })
+        }
