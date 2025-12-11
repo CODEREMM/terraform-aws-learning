@@ -226,3 +226,99 @@ resource "aws_api_gateway_stage" "api_stage" {
   rest_api_id   = aws_api_gateway_rest_api.api.id
   stage_name    = var.environment
 }
+
+# ==========================================
+# ROUTE 53 HEALTH CHECKS
+# ==========================================
+
+# Extract domain names from API endpoints
+locals {
+  # Remove https:// and everything after the domain
+  primary_api_domain   = regex("https://([^/]+)", module.api_gateway_primary.api_endpoint)[0]
+  secondary_api_domain = regex("https://([^/]+)", module.api_gateway_secondary.api_endpoint)[0]
+  
+  # Extract the path for health check
+  primary_api_path     = regex("https://[^/]+(/.+)", module.api_gateway_primary.api_endpoint)[0]
+  secondary_api_path   = regex("https://[^/]+(/.+)", module.api_gateway_secondary.api_endpoint)[0]
+}
+# Health check for primary region API
+resource "aws_route53_health_check" "primary" {
+  fqdn              = local.primary_api_domain
+  port              = 443
+  type              = "HTTPS"
+  resource_path     = "/dev-primary/items"
+  failure_threshold = "3"
+  request_interval  = "30"
+
+  tags = {
+    Name        = "${var.environment}-primary-api-health"
+    Environment = var.environment
+    Region      = var.primary_region
+  }
+}
+
+# Health check for secondary region API
+resource "aws_route53_health_check" "secondary" {
+  fqdn              = local.secondary_api_domain
+  port              = 443
+  type              = "HTTPS"
+  resource_path     = "/dev-secondary/items"
+  failure_threshold = "3"
+  request_interval  = "30"
+
+  tags = {
+    Name        = "${var.environment}-secondary-api-health"
+    Environment = var.environment
+    Region      = var.secondary_region
+  }
+}
+
+# ==========================================
+# CLOUDWATCH ALARMS FOR HEALTH MONITORING
+# ==========================================
+
+# Alarm when primary API becomes unhealthy
+resource "aws_cloudwatch_metric_alarm" "primary_health" {
+  alarm_name          = "${var.environment}-primary-api-unhealthy"
+  comparison_operator = "LessThanThreshold"
+  evaluation_periods  = 2
+  metric_name         = "HealthCheckStatus"
+  namespace           = "AWS/Route53"
+  period              = 60
+  statistic           = "Minimum"
+  threshold           = 1
+  alarm_description   = "Primary API health check failed - possible outage in ${var.primary_region}"
+  treat_missing_data  = "breaching"
+
+  dimensions = {
+    HealthCheckId = aws_route53_health_check.primary.id
+  }
+
+  tags = {
+    Environment = var.environment
+    Severity    = "Critical"
+  }
+}
+
+# Alarm when secondary API becomes unhealthy
+resource "aws_cloudwatch_metric_alarm" "secondary_health" {
+  alarm_name          = "${var.environment}-secondary-api-unhealthy"
+  comparison_operator = "LessThanThreshold"
+  evaluation_periods  = 2
+  metric_name         = "HealthCheckStatus"
+  namespace           = "AWS/Route53"
+  period              = 60
+  statistic           = "Minimum"
+  threshold           = 1
+  alarm_description   = "Secondary API health check failed - possible outage in ${var.secondary_region}"
+  treat_missing_data  = "breaching"
+
+  dimensions = {
+    HealthCheckId = aws_route53_health_check.secondary.id
+  }
+
+  tags = {
+    Environment = var.environment
+    Severity    = "Critical"
+  }
+}
